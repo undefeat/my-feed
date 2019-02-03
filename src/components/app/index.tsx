@@ -5,6 +5,7 @@ import PostList from 'src/components/post-list';
 import { PostInfo } from 'src/components/post';
 import LocalStorageService from 'src/services/LocalStorageService';
 import './index.css';
+import Loader from '../loader';
 
 interface State {
     users: Model.User[];
@@ -40,7 +41,7 @@ class App extends React.Component<{}, State> {
                 <h1>Recent posts</h1>
 
                 {loading ? (
-                    <h2>Loading...</h2>
+                    <Loader />
                 ) : (
                     <PostList
                         postInfos={postInfos}
@@ -55,6 +56,12 @@ class App extends React.Component<{}, State> {
     }
 
     async componentDidMount() {
+        const cloak = document.getElementById('cloak');
+        if (cloak) {
+            cloak.style.visibility = 'hidden';
+            cloak.style.opacity = '0';
+        }
+
         try {
             this.setState({ loading: true });
 

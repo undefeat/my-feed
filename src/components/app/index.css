@@ -6,13 +6,13 @@
     color: #150202;
     margin: 1em auto;
     height: calc(100% - 2em);
-    border: 2px solid #476C9B;
-    background: #9AADBF;
+    border: 2px solid #476c9b;
+    background: #9aadbf;
 }
 
 .app h1 {
-    background: #DFCCB9;
-    border-bottom: 2px solid #476C9B;
+    background: #dfccb9;
+    border-bottom: 2px solid #476c9b;
     box-sizing: border-box;
     margin: 0;
     padding: 0.75em 0 0.75em 0.5em;
