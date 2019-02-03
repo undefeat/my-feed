@@ -6,9 +6,12 @@ import './index.css';
 interface Props {
     postInfos: PostInfo[];
     initialScrollTop?: number;
+    onScrollTopChanged?: (scrollTop: number) => void;
 }
 
-interface State extends ListLayout {}
+interface State extends ListLayout {
+    scrollTop: number;
+}
 
 class PostList extends React.Component<Props, State> {
     state = {
@@ -70,14 +73,22 @@ class PostList extends React.Component<Props, State> {
                 { scrollTop, scrollHeight } = container;
 
             this.setState(prevState => {
-                return calcListLayout(prevState, {
-                    containerHeight,
-                    scrollTop,
-                    scrollHeight,
-                    overscan: this.overscan,
-                    totalRows,
-                    rowHeightMin: this.rowHeightMin
-                });
+                if (prevState.scrollTop !== scrollTop && this.props.onScrollTopChanged) {
+                    this.props.onScrollTopChanged(scrollTop);
+                }
+
+                return {
+                    ...calcListLayout(prevState, {
+                        containerHeight,
+                        prevScrollTop: prevState.scrollTop,
+                        scrollTop,
+                        scrollHeight,
+                        overscan: this.overscan,
+                        totalRows,
+                        rowHeightMin: this.rowHeightMin
+                    }),
+                    scrollTop
+                };
             });
         }
     };

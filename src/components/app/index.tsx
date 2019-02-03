@@ -3,23 +3,26 @@ import UserService from 'src/services/UserService';
 import PostService from 'src/services/PostService';
 import PostList from 'src/components/post-list';
 import { PostInfo } from 'src/components/post';
+import LocalStorageService from 'src/services/LocalStorageService';
 import './index.css';
 
 interface State {
     users: Model.User[];
     posts: Model.Post[];
     loading: boolean;
+    initialScrollTop: number;
 }
 
 class App extends React.Component<{}, State> {
     state: State = {
         users: [],
         posts: [],
-        loading: false
+        loading: false,
+        initialScrollTop: 0
     };
 
     render() {
-        const { users, posts, loading } = this.state;
+        const { users, posts, loading, initialScrollTop } = this.state;
 
         if (loading) {
             return 'Loading...';
@@ -38,7 +41,13 @@ class App extends React.Component<{}, State> {
 
         return (
             <main className="app">
-                <PostList postInfos={postInfos} />
+                <PostList
+                    postInfos={postInfos}
+                    initialScrollTop={initialScrollTop}
+                    onScrollTopChanged={scrollTop => {
+                        LocalStorageService._writeScrollTopThrottled(scrollTop);
+                    }}
+                />
             </main>
         );
     }
@@ -50,7 +59,7 @@ class App extends React.Component<{}, State> {
             const users = await UserService.getUsers();
             const posts = await PostService.getPosts();
 
-            this.setState({ users, posts, loading: false });
+            this.setState({ users, posts, initialScrollTop: LocalStorageService.readScrollTop(), loading: false });
         } catch (e) {
             this.setState(() => {
                 throw e;

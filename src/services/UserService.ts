@@ -1,6 +1,6 @@
-import Service from './Service';
+import ApiService from './ApiService';
 
-class UserService extends Service {
+class UserService extends ApiService {
     async getUsers(): Promise<Model.User[]> {
         const response = await fetch(this.API + 'users');
 

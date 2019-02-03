@@ -1,5 +1,5 @@
 function calcListLayout(prevLayout: ListLayout, options: ListLayoutOptions): ListLayout {
-    const { containerHeight, scrollTop, scrollHeight, overscan, rowHeightMin, totalRows } = options;
+    const { containerHeight, scrollTop, prevScrollTop, scrollHeight, overscan, rowHeightMin, totalRows } = options;
 
     const rowsToShow = Math.round(containerHeight / rowHeightMin),
         scrolledShare = scrollTop / (scrollHeight || 1000);
@@ -9,14 +9,13 @@ function calcListLayout(prevLayout: ListLayout, options: ListLayoutOptions): Lis
         renderFrom = Math.max(0, firstIndex - overscan),
         renderTo = Math.min(totalRows, lastIndex + overscan);
 
-    const deltaY = scrollTop - prevLayout.scrollTop,
+    const deltaY = scrollTop - prevScrollTop,
         direction = deltaY > 0 ? ScrollDirection.DOWN : ScrollDirection.UP;
 
     if (prevLayout.direction === direction) {
         return {
             renderFrom,
             renderTo,
-            scrollTop,
             direction
         };
     }
@@ -24,7 +23,6 @@ function calcListLayout(prevLayout: ListLayout, options: ListLayoutOptions): Lis
     return {
         renderFrom: prevLayout.renderFrom,
         renderTo: prevLayout.renderTo,
-        scrollTop,
         direction
     };
 }
@@ -37,12 +35,12 @@ export const enum ScrollDirection {
 export interface ListLayout {
     renderFrom: number;
     renderTo: number;
-    scrollTop: number;
     direction: ScrollDirection;
 }
 
 export interface ListLayoutOptions {
     containerHeight: number;
+    prevScrollTop: number;
     scrollTop: number;
     scrollHeight: number;
     overscan: number;
