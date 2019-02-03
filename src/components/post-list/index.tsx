@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Post, { PostInfo } from 'src/components/post';
-import calcListLayout, { ListLayout, ScrollDirection } from 'src/logic/calcListLayout';
+import calcListSelection, { ScrollDirection, ListSelection, getDirection } from 'src/logic/calcListSelection';
 import './index.css';
 
 interface Props {
@@ -9,8 +9,9 @@ interface Props {
     onScrollTopChanged?: (scrollTop: number) => void;
 }
 
-interface State extends ListLayout {
+interface State extends ListSelection {
     scrollTop: number;
+    direction: ScrollDirection;
 }
 
 class PostList extends React.Component<Props, State> {
@@ -21,7 +22,8 @@ class PostList extends React.Component<Props, State> {
         direction: ScrollDirection.DOWN
     };
 
-    rowHeightMin = 200;
+    rowHeightMin = 250;
+    rowsToShow = 10;
     overscan = 10;
 
     render() {
@@ -37,7 +39,7 @@ class PostList extends React.Component<Props, State> {
             <div ref={this.containerRef} className="post-container">
                 <div style={{ height: paddingBefore }} />
 
-                <ul className="post-list">
+                <ul className="post-list" style={{ height: this.rowHeightMin * (renderTo - renderFrom) }}>
                     {postInfosToRender.map(postInfo => (
                         <Post key={postInfo.id} {...postInfo} />
                     ))}
@@ -68,8 +70,8 @@ class PostList extends React.Component<Props, State> {
         const container = this.containerRef.current;
 
         if (container) {
-            const totalRows = this.props.postInfos.length,
-                containerHeight = container.getBoundingClientRect().height,
+            const { overscan, rowsToShow } = this,
+                totalRows = this.props.postInfos.length,
                 { scrollTop, scrollHeight } = container;
 
             this.setState(prevState => {
@@ -77,16 +79,28 @@ class PostList extends React.Component<Props, State> {
                     this.props.onScrollTopChanged(scrollTop);
                 }
 
-                return {
-                    ...calcListLayout(prevState, {
-                        containerHeight,
-                        prevScrollTop: prevState.scrollTop,
-                        scrollTop,
+                const direction = getDirection(prevState.scrollTop, scrollTop);
+
+                if (prevState.direction === direction) {
+                    const selection = calcListSelection({
+                        overscan,
+                        rowsToShow,
                         scrollHeight,
-                        overscan: this.overscan,
-                        totalRows,
-                        rowHeightMin: this.rowHeightMin
-                    }),
+                        scrollTop,
+                        totalRows
+                    });
+
+                    return {
+                        ...selection,
+                        direction,
+                        scrollTop
+                    };
+                }
+
+                return {
+                    renderFrom: prevState.renderFrom,
+                    renderTo: prevState.renderTo,
+                    direction,
                     scrollTop
                 };
             });
