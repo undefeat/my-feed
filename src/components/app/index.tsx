@@ -24,10 +24,6 @@ class App extends React.Component<{}, State> {
     render() {
         const { users, posts, loading, initialScrollTop } = this.state;
 
-        if (loading) {
-            return 'Loading...';
-        }
-
         const postInfos: PostInfo[] = posts.map(post => {
             const user = users.find(user => user.id === post.userId);
 
@@ -41,13 +37,19 @@ class App extends React.Component<{}, State> {
 
         return (
             <main className="app">
-                <PostList
-                    postInfos={postInfos}
-                    initialScrollTop={initialScrollTop}
-                    onScrollTopChanged={scrollTop => {
-                        LocalStorageService._writeScrollTopThrottled(scrollTop);
-                    }}
-                />
+                <h1>Recent posts</h1>
+
+                {loading ? (
+                    <h2>Loading...</h2>
+                ) : (
+                    <PostList
+                        postInfos={postInfos}
+                        initialScrollTop={initialScrollTop}
+                        onScrollTopChanged={scrollTop => {
+                            LocalStorageService._writeScrollTopThrottled(scrollTop);
+                        }}
+                    />
+                )}
             </main>
         );
     }

@@ -1,3 +1,19 @@
 .app {
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    max-width: 960px;
+    color: #150202;
+    margin: 1em auto;
+    height: calc(100% - 2em);
+    border: 2px solid #476C9B;
+    background: #9AADBF;
+}
+
+.app h1 {
+    background: #DFCCB9;
+    border-bottom: 2px solid #476C9B;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0.75em 0 0.75em 0.5em;
 }

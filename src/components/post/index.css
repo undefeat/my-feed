@@ -1,3 +1,11 @@
+.post-item {
+    padding: 0.5em;
+    margin: 0 0 1em 0;
+    border: 2px solid #476C9B;
+    border-radius: 0 8px 8px 8px;
+    background: #DFCCB9;
+}
+
 .post-item__title {
     text-transform: capitalize;
 }
@@ -8,4 +16,12 @@
 
 .post-item__body::first-letter {
     text-transform: uppercase;
+}
+
+.post-item__author {
+    color: #B06D5E;
+}
+
+.post-item__author:hover {
+    text-decoration: underline;
 }

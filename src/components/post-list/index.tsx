@@ -37,7 +37,7 @@ class PostList extends React.Component<Props, State> {
             <div ref={this.containerRef} className="post-container">
                 <div style={{ height: paddingBefore }} />
 
-                <ul>
+                <ul className="post-list">
                     {postInfosToRender.map(postInfo => (
                         <Post key={postInfo.id} {...postInfo} />
                     ))}
