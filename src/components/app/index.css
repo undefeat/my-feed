@@ -1,3 +1,8 @@
+.app,
+.app * {
+    box-sizing: border-box;
+}
+
 .app {
     display: flex;
     flex-direction: column;
@@ -15,5 +20,22 @@
     border-bottom: 2px solid #476c9b;
     box-sizing: border-box;
     margin: 0;
-    padding: 0.75em 0 0.75em 0.5em;
+    padding: 0.5em 0 0.5em 0.5em;
+}
+
+@media (max-width: 960px) {
+    .app {
+        margin: 0;
+        height: 100%;
+    }
+
+    .app h1 {
+        padding: 0.25em 0 0.25em 0.5em;
+    }
+}
+
+@media (max-width: 440px) {
+    .app {
+        font-size: 90%;
+    }
 }

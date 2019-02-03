@@ -20,6 +20,7 @@
 
 .post-item__author {
     color: #B06D5E;
+    margin: 2em 0;
 }
 
 .post-item__author:hover {
