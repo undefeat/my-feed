@@ -1,8 +1,13 @@
+import 'whatwg-fetch';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-
-import 'src/style.css';
-
 import App from 'src/components/app';
+import ErrorBoundary from 'src/components/error-boundary';
+import 'src/styles.css';
 
-ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);
+ReactDOM.render(
+    <ErrorBoundary>
+        <App />
+    </ErrorBoundary>,
+    document.getElementById('root') as HTMLElement
+);
