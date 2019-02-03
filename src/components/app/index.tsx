@@ -1,6 +1,8 @@
 import * as React from 'react';
 import UserService from 'src/services/UserService';
 import PostService from 'src/services/PostService';
+import PostList from 'src/components/post-list';
+import { PostInfo } from 'src/components/post';
 
 interface State {
     users: Model.User[];
@@ -9,7 +11,7 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-    state = {
+    state: State = {
         users: [],
         posts: [],
         loading: false
@@ -22,14 +24,21 @@ class App extends React.Component<{}, State> {
             return 'Loading...';
         }
 
-        return (
-            <div>
-                <h2>Users</h2>
-                {JSON.stringify(users)}
+        const postInfos: PostInfo[] = posts.map(post => {
+            const user = users.find(user => user.id === post.userId);
 
-                <h2>Posts</h2>
-                {JSON.stringify(posts)}
-            </div>
+            return {
+                id: post.id,
+                author: user ? user.name : 'Unknown',
+                title: post.title,
+                body: post.body
+            };
+        });
+
+        return (
+            <main>
+                <PostList postInfos={postInfos} />
+            </main>
         );
     }
 

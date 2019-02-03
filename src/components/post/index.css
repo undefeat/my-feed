@@ -1,0 +1,7 @@
+.post-item__title {
+    text-transform: capitalize;
+}
+
+.post-item__body::first-letter {
+    text-transform: uppercase;
+}
