@@ -10,7 +10,6 @@ class Loader extends React.Component {
     state = { mounted: false };
 
     render() {
-        console.log(this.state.mounted);
         return (
             <div className={classnames('loader', { hidden: !this.state.mounted })}>
                 <div className="lds-ellipsis">
@@ -21,10 +20,6 @@ class Loader extends React.Component {
                 </div>
             </div>
         );
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        console.log(this.state, prevState);
     }
 
     componentDidMount() {

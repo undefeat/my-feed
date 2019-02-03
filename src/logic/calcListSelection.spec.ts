@@ -2,7 +2,7 @@ import calcListSelection, { ListSelectionArgs, getDirection, ScrollDirection } f
 
 const args: ListSelectionArgs = {
     overscan: 7,
-    rowsToShow: 11,
+    rowCount: 11,
     scrollHeight: 17389,
     scrollTop: 6917,
     totalRows: 97
@@ -83,10 +83,10 @@ describe('calcListSelection', () => {
         ).toBe(args.totalRows);
     });
 
-    it('should add overscan to rowsToShow when both are present', () => {
+    it('should add overscan to rowCount when both are present', () => {
         const { renderFrom, renderTo } = calcListSelection(args);
 
-        expect(renderFrom + 2 * args.overscan + args.rowsToShow).toBe(renderTo);
+        expect(renderFrom + 2 * args.overscan + args.rowCount).toBe(renderTo);
     });
 
     it('should treat negative overscan as 0', () => {
@@ -103,23 +103,23 @@ describe('calcListSelection', () => {
         );
     });
 
-    it('should return empty selection when rrowsToShow is negative or 0', () => {
+    it('should return empty selection when rrowCount is negative or 0', () => {
         expect(
             calcListSelection({
                 ...args,
-                rowsToShow: -199
+                rowCount: -199
             })
         ).toEqual(
             calcListSelection({
                 ...args,
-                rowsToShow: 0
+                rowCount: 0
             })
         );
 
         expect(
             calcListSelection({
                 ...args,
-                rowsToShow: 0
+                rowCount: 0
             })
         ).toEqual({
             renderFrom: 0,

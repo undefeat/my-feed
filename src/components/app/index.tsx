@@ -36,15 +36,22 @@ class App extends React.Component<{}, State> {
             };
         });
 
+        if (postInfos.length === 0) {
+        }
+
         return (
             <main className="app">
                 <h1>Recent posts</h1>
 
                 {loading ? (
                     <Loader />
+                ) : postInfos.length === 0 ? (
+                    <h2>No Posts Found</h2>
                 ) : (
                     <PostList
                         postInfos={postInfos}
+                        rowCount={10}
+                        overscan={10}
                         initialScrollTop={initialScrollTop}
                         onScrollTopChanged={scrollTop => {
                             LocalStorageService._writeScrollTopThrottled(scrollTop);

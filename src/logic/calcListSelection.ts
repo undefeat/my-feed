@@ -1,7 +1,7 @@
 function calcListSelection(args: ListSelectionArgs): ListSelection {
-    let { overscan, rowsToShow, scrollHeight, scrollTop, totalRows } = args;
+    let { overscan, rowCount, scrollHeight, scrollTop, totalRows } = args;
 
-    if (scrollHeight <= 0 || totalRows <= 0 || rowsToShow <= 0) {
+    if (scrollHeight <= 0 || totalRows <= 0 || rowCount <= 0) {
         return { renderFrom: 0, renderTo: 0 }; // Empty selection.
     }
 
@@ -10,10 +10,10 @@ function calcListSelection(args: ListSelectionArgs): ListSelection {
     scrollTop = Math.min(scrollTop, scrollHeight),
     scrollHeight = Math.max(scrollHeight);
 
-    const firstIndexMax = totalRows - rowsToShow,
+    const firstIndexMax = totalRows - rowCount,
         scrolledShare = scrollTop / scrollHeight,
         firstIndex = Math.min(scrolledShare * totalRows, firstIndexMax),
-        lastIndex = firstIndex + rowsToShow,
+        lastIndex = firstIndex + rowCount,
         renderFrom = Math.max(0, firstIndex - overscan),
         renderTo = Math.min(totalRows, lastIndex + overscan);
 
@@ -52,7 +52,7 @@ export interface ListSelectionArgs {
     /**
      * Number of rows to render always.
      */
-    rowsToShow: number;
+    rowCount: number;
     /**
      * Total height of the list.
      */

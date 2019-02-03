@@ -5,6 +5,8 @@ import './index.css';
 
 interface Props {
     postInfos: PostInfo[];
+    rowCount: number;
+    overscan: number;
     initialScrollTop?: number;
     onScrollTopChanged?: (scrollTop: number) => void;
 }
@@ -12,34 +14,32 @@ interface Props {
 interface State extends ListSelection {
     scrollTop: number;
     direction: ScrollDirection;
+    avgRowHeight: number | undefined;
 }
 
-class PostList extends React.Component<Props, State> {
-    state = {
+class PostList extends React.PureComponent<Props, State> {
+    state: State = {
         renderFrom: 0,
-        renderTo: 20,
+        renderTo: this.props.rowCount + this.props.overscan,
         scrollTop: this.props.initialScrollTop || 0,
-        direction: ScrollDirection.DOWN
+        direction: ScrollDirection.DOWN,
+        avgRowHeight: undefined
     };
-
-    rowHeightMin = 250;
-    rowsToShow = 10;
-    overscan = 10;
 
     render() {
         const { postInfos } = this.props,
-            { renderFrom, renderTo } = this.state;
+            { renderFrom, renderTo, avgRowHeight } = this.state;
 
         const postInfosToRender = postInfos.slice(renderFrom, renderTo);
 
-        const paddingBefore = renderFrom * this.rowHeightMin,
-            paddingAfter = (postInfos.length - renderTo) * this.rowHeightMin;
+        const paddingBefore = avgRowHeight ? renderFrom * avgRowHeight : 0,
+            paddingAfter = avgRowHeight ? (postInfos.length - renderTo) * avgRowHeight : 0;
 
         return (
             <div ref={this.containerRef} className="post-container">
                 <div style={{ height: paddingBefore }} />
 
-                <ul className="post-list" style={{ height: this.rowHeightMin * (renderTo - renderFrom) }}>
+                <ul ref={this.listRef} className="post-list">
                     {postInfosToRender.map(postInfo => (
                         <Post key={postInfo.id} {...postInfo} />
                     ))}
@@ -52,39 +52,40 @@ class PostList extends React.Component<Props, State> {
 
     componentDidMount() {
         if (this.containerRef.current) {
-            this.containerRef.current.addEventListener('scroll', this.scrollEventListener);
+            this.containerRef.current.addEventListener('scroll', this.recalcSelection);
             this.containerRef.current.scrollTop = this.state.scrollTop;
-            this.scrollEventListener();
+            this.recalcSelection();
         }
     }
 
     componentWillUnmount() {
         if (this.containerRef.current) {
-            this.containerRef.current.removeEventListener('scroll', this.scrollEventListener);
+            this.containerRef.current.removeEventListener('scroll', this.recalcSelection);
         }
     }
 
-    private containerRef = React.createRef<HTMLDivElement>();
+    recalcSelection = () => {
+        const container = this.containerRef.current,
+            list = this.listRef.current;
 
-    private scrollEventListener = () => {
-        const container = this.containerRef.current;
-
-        if (container) {
-            const { overscan, rowsToShow } = this,
-                totalRows = this.props.postInfos.length,
-                { scrollTop, scrollHeight } = container;
+        if (container && list) {
+            const { overscan, rowCount, postInfos } = this.props,
+                totalRows = postInfos.length,
+                { scrollTop, scrollHeight } = container,
+                listHeight = list.getBoundingClientRect().height;
 
             this.setState(prevState => {
                 if (prevState.scrollTop !== scrollTop && this.props.onScrollTopChanged) {
                     this.props.onScrollTopChanged(scrollTop);
                 }
 
-                const direction = getDirection(prevState.scrollTop, scrollTop);
+                const direction = getDirection(prevState.scrollTop, scrollTop),
+                    avgRowHeight = listHeight / (prevState.renderTo - prevState.renderFrom);
 
                 if (prevState.direction === direction) {
                     const selection = calcListSelection({
                         overscan,
-                        rowsToShow,
+                        rowCount,
                         scrollHeight,
                         scrollTop,
                         totalRows
@@ -93,7 +94,8 @@ class PostList extends React.Component<Props, State> {
                     return {
                         ...selection,
                         direction,
-                        scrollTop
+                        scrollTop,
+                        avgRowHeight
                     };
                 }
 
@@ -101,11 +103,15 @@ class PostList extends React.Component<Props, State> {
                     renderFrom: prevState.renderFrom,
                     renderTo: prevState.renderTo,
                     direction,
-                    scrollTop
+                    scrollTop,
+                    avgRowHeight
                 };
             });
         }
     };
+
+    private containerRef = React.createRef<HTMLDivElement>();
+    private listRef = React.createRef<HTMLUListElement>();
 }
 
 export default PostList;
