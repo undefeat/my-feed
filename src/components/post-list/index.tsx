@@ -2,6 +2,7 @@ import * as React from 'react';
 import Post, { PostInfo } from 'src/components/post';
 import calcListSelection, { ScrollDirection, ListSelection, getDirection } from 'src/logic/calcListSelection';
 import './index.css';
+import { throttle } from 'lodash';
 
 interface Props {
     postInfos: PostInfo[];
@@ -52,19 +53,19 @@ class PostList extends React.PureComponent<Props, State> {
 
     componentDidMount() {
         if (this.containerRef.current) {
-            this.containerRef.current.addEventListener('scroll', this.recalcSelection);
+            this.containerRef.current.addEventListener('scroll', this.scrollEventListenerThrottled);
             this.containerRef.current.scrollTop = this.state.scrollTop;
-            this.recalcSelection();
+            this.recalculateSelection();
         }
     }
 
     componentWillUnmount() {
         if (this.containerRef.current) {
-            this.containerRef.current.removeEventListener('scroll', this.recalcSelection);
+            this.containerRef.current.removeEventListener('scroll', this.scrollEventListenerThrottled);
         }
     }
 
-    recalcSelection = () => {
+    recalculateSelection = () => {
         const container = this.containerRef.current,
             list = this.listRef.current;
 
@@ -112,6 +113,7 @@ class PostList extends React.PureComponent<Props, State> {
 
     private containerRef = React.createRef<HTMLDivElement>();
     private listRef = React.createRef<HTMLUListElement>();
+    private scrollEventListenerThrottled = throttle(this.recalculateSelection, 50);
 }
 
 export default PostList;

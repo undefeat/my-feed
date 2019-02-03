@@ -11,7 +11,7 @@ class LocalStorageService {
         return scrollTop;
     }
 
-    _writeScrollTopThrottled = throttle(this.writeScrollTop, 200);
+    writeScrollTopThrottled = throttle(this.writeScrollTop, 200);
 
     private writeScrollTop(scrollTop: number) {
         localStorage.setItem(this.scrollTopKey, String(scrollTop));

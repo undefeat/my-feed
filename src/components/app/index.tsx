@@ -54,7 +54,7 @@ class App extends React.Component<{}, State> {
                         overscan={10}
                         initialScrollTop={initialScrollTop}
                         onScrollTopChanged={scrollTop => {
-                            LocalStorageService._writeScrollTopThrottled(scrollTop);
+                            LocalStorageService.writeScrollTopThrottled(scrollTop);
                         }}
                     />
                 )}
