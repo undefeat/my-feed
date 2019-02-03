@@ -1,6 +1,6 @@
 import calcListSelection, { ListSelectionArgs, getDirection, ScrollDirection } from './calcListSelection';
 
-const args: ListSelectionArgs = {
+export const args: ListSelectionArgs = {
     overscan: 7,
     rowCount: 11,
     scrollHeight: 17389,

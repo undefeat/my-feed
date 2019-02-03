@@ -1,6 +1,11 @@
 import * as React from 'react';
-import Post, { PostInfo } from 'src/components/post';
-import calcListSelection, { ScrollDirection, ListSelection, getDirection } from 'src/logic/calcListSelection';
+import Post, { PostInfo } from '../post';
+import calcListSelection, {
+    ScrollDirection,
+    ListSelection,
+    getDirection,
+    ListSelectionArgs
+} from '../../logic/calcListSelection';
 import './index.css';
 import { throttle } from 'lodash';
 
@@ -26,6 +31,9 @@ class PostList extends React.PureComponent<Props, State> {
         direction: ScrollDirection.DOWN,
         avgRowHeight: undefined
     };
+
+    containerRef = React.createRef<HTMLDivElement>();
+    listRef = React.createRef<HTMLUListElement>();
 
     render() {
         const { postInfos } = this.props,
@@ -75,44 +83,57 @@ class PostList extends React.PureComponent<Props, State> {
                 { scrollTop, scrollHeight } = container,
                 listHeight = list.getBoundingClientRect().height;
 
-            this.setState(prevState => {
-                if (prevState.scrollTop !== scrollTop && this.props.onScrollTopChanged) {
-                    this.props.onScrollTopChanged(scrollTop);
-                }
-
-                const direction = getDirection(prevState.scrollTop, scrollTop),
-                    avgRowHeight = listHeight / (prevState.renderTo - prevState.renderFrom);
-
-                if (prevState.direction === direction) {
-                    const selection = calcListSelection({
+            this.setState(prevState =>
+                this.calcNextState(
+                    prevState,
+                    {
                         overscan,
                         rowCount,
+                        scrollTop,
                         scrollHeight,
-                        scrollTop,
                         totalRows
-                    });
-
-                    return {
-                        ...selection,
-                        direction,
-                        scrollTop,
-                        avgRowHeight
-                    };
-                }
-
-                return {
-                    renderFrom: prevState.renderFrom,
-                    renderTo: prevState.renderTo,
-                    direction,
-                    scrollTop,
-                    avgRowHeight
-                };
-            });
+                    },
+                    listHeight,
+                    this.props.onScrollTopChanged
+                )
+            );
         }
     };
 
-    private containerRef = React.createRef<HTMLDivElement>();
-    private listRef = React.createRef<HTMLUListElement>();
+    calcNextState(
+        prevState: State,
+        args: ListSelectionArgs,
+        listHeight: number,
+        onScrollTopChanged?: (scrollTop: number) => void
+    ): State {
+        if (prevState.scrollTop !== args.scrollTop && onScrollTopChanged) {
+            onScrollTopChanged(args.scrollTop);
+        }
+
+        const direction = getDirection(prevState.scrollTop, args.scrollTop),
+            avgRowHeight = listHeight / (prevState.renderTo - prevState.renderFrom);
+
+        if (prevState.direction === direction) {
+            const selection = calcListSelection(args);
+
+            return {
+                ...selection,
+                direction,
+                scrollTop: args.scrollTop,
+                avgRowHeight
+            };
+        }
+
+        // Don't recalculate selection when direction changes to prevent from jiterring caused by rounding.
+        return {
+            renderFrom: prevState.renderFrom,
+            renderTo: prevState.renderTo,
+            direction,
+            scrollTop: args.scrollTop,
+            avgRowHeight
+        };
+    }
+
     private scrollEventListenerThrottled = throttle(this.recalculateSelection, 50);
 }
 

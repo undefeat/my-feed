@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<li
+  className="post-item"
+>
+  <header
+    className="post-item__title"
+  >
+    <h2>
+      I am title
+    </h2>
+  </header>
+  <p
+    className="post-item__body"
+  >
+    I am body
+  </p>
+  <footer>
+    <h6
+      className="post-item__author"
+    >
+      Tester
+    </h6>
+  </footer>
+</li>
+`;
