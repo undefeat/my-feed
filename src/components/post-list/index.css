@@ -6,4 +6,5 @@
 .post-list {
     list-style: none;
     padding: 1em;
+    margin: 0;
 }
