@@ -2,6 +2,10 @@
     text-transform: capitalize;
 }
 
+.post-item__body {
+    white-space: pre-line;
+}
+
 .post-item__body::first-letter {
     text-transform: uppercase;
 }

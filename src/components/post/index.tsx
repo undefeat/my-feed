@@ -10,9 +10,9 @@ export interface PostInfo {
 
 class Post extends React.Component<PostInfo> {
     render() {
-        const { author, title, body } = this.props;
+        const { id, author, title, body } = this.props;
         return (
-            <li className="post-item">
+            <li className="post-item" id={`post-${id}`}>
                 <header className="post-item__title">
                     <h2>{title}</h2>
                 </header>

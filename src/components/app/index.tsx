@@ -3,6 +3,7 @@ import UserService from 'src/services/UserService';
 import PostService from 'src/services/PostService';
 import PostList from 'src/components/post-list';
 import { PostInfo } from 'src/components/post';
+import './index.css';
 
 interface State {
     users: Model.User[];
@@ -36,7 +37,7 @@ class App extends React.Component<{}, State> {
         });
 
         return (
-            <main>
+            <main className="app">
                 <PostList postInfos={postInfos} />
             </main>
         );
