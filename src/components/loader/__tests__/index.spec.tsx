@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { create } from 'react-test-renderer';
-import Post from '.';
+import Loader from '..';
 
 it('renders correctly', () => {
-    const tree = create(<Post id={1} author="Tester" title="I am title" body="I am body" />).toJSON();
+    const tree = create(<Loader />).toJSON();
 
     expect(tree).toMatchSnapshot();
 });

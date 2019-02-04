@@ -1,7 +1,14 @@
 import * as React from 'react';
-import PostListContainer from './container';
-import { ScrollDirection } from '../../logic/calcListSelection';
-import { args } from '../../logic/calcListSelection.spec';
+import PostListContainer from '../container';
+import { ScrollDirection, ListSelectionArgs } from '../../../logic/calcListSelection';
+
+export const args: ListSelectionArgs = {
+    overscan: 7,
+    rowCount: 11,
+    scrollHeight: 17389,
+    scrollTop: 6917,
+    totalRows: 97
+};
 
 function mockPostList(props?: any) {
     const postList = new PostListContainer({ postInfos: [], rowCount: 11, overscan: 7, ...props });

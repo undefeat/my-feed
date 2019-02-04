@@ -1,4 +1,4 @@
-import calcListSelection, { ListSelectionArgs, getDirection, ScrollDirection } from './calcListSelection';
+import calcListSelection, { ListSelectionArgs, getDirection, ScrollDirection } from '../calcListSelection';
 
 export const args: ListSelectionArgs = {
     overscan: 7,

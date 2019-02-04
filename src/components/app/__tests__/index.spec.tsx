@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createRenderer } from 'react-test-renderer/shallow';
-import App from '.';
+import App from '..';
 
 it('renders with "No Posts Found"', () => {
     const rendered = createRenderer(),

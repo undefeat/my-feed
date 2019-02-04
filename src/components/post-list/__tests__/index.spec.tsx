@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createRenderer } from 'react-test-renderer/shallow';
-import PostList from '.';
+import PostList from '..';
 
 it('renders correctly', () => {
     const postInfos = [
