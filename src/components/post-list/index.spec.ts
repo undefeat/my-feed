@@ -63,16 +63,16 @@ describe('calcNextState', () => {
 
     it('should return new selection when direction does not change', () => {
         const postList = mockPostList(),
-        prevState = { renderFrom: 59, renderTo: 73, scrollTop: 199, direction: ScrollDirection.DOWN },
-        newScrollTop = 201;
+            prevState = { renderFrom: 59, renderTo: 73, scrollTop: 199, direction: ScrollDirection.DOWN },
+            newScrollTop = 201;
 
-    const nextState = postList.calcNextState(
-        { ...postList.state, ...prevState },
-        { ...args, scrollTop: newScrollTop },
-        6917
-    );
+        const nextState = postList.calcNextState(
+            { ...postList.state, ...prevState },
+            { ...args, scrollTop: newScrollTop },
+            6917
+        );
 
-    expect(nextState.renderFrom).not.toBe(prevState.renderFrom);
-    expect(nextState.renderTo).not.toBe(prevState.renderTo);
+        expect(nextState.renderFrom).not.toBe(prevState.renderFrom);
+        expect(nextState.renderTo).not.toBe(prevState.renderTo);
     });
 });

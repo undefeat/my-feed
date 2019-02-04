@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { throttle } from 'lodash';
 import Post, { PostInfo } from '../post';
 import calcListSelection, {
     ScrollDirection,
@@ -7,7 +8,6 @@ import calcListSelection, {
     ListSelectionArgs
 } from '../../logic/calcListSelection';
 import './index.css';
-import { throttle } from 'lodash';
 
 interface Props {
     postInfos: PostInfo[];
@@ -61,9 +61,9 @@ class PostList extends React.PureComponent<Props, State> {
 
     componentDidMount() {
         if (this.containerRef.current) {
-            this.containerRef.current.addEventListener('scroll', this.scrollEventListenerThrottled);
-            this.containerRef.current.scrollTop = this.state.scrollTop;
             this.recalculateSelection();
+            this.containerRef.current.addEventListener('scroll', this.scrollEventListenerThrottled);
+            this.scrollBy(this.containerRef.current, this.state.scrollTop);
         }
     }
 
@@ -133,6 +133,19 @@ class PostList extends React.PureComponent<Props, State> {
             avgRowHeight
         };
     }
+
+    private scrollBy = (container: HTMLDivElement, scrollValue: number) => {
+        const prevScrollTop = container.scrollTop;
+        container.scrollTop += scrollValue;
+
+        const scrolled = container.scrollTop - prevScrollTop;
+        // If container was scrolled but wasn't scrolled by the full scroll value try to scroll it by the remainder.
+        if (scrolled > 0 && scrolled < scrollValue) {
+            window.requestAnimationFrame(() => {
+                this.scrollBy(container, scrollValue - scrolled);
+            });
+        }
+    };
 
     private scrollEventListenerThrottled = throttle(this.recalculateSelection, 50);
 }
