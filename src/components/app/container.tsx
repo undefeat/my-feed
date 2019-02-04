@@ -37,8 +37,6 @@ class AppContainer extends React.Component<{}, State> {
             const users = await UserService.getUsers();
             const posts = await PostService.getPosts();
 
-            console.log(users, posts);
-
             this.setState({ users, posts, initialScrollTop: LocalStorageService.readScrollTop(), loading: false });
         } catch (e) {
             this.setState(() => {
