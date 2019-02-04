@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="post-container"
+>
+  <div
+    style={
+      Object {
+        "height": 1087.0125,
+      }
+    }
+  />
+  <ul
+    className="post-list"
+  >
+    <Post
+      author="Leanne Graham"
+      body="dignissimos aperiam dolorem qui eum
+    facilis quibusdam animi sint suscipit qui sint possimus cum
+    quaerat magni maiores excepturi
+    ipsam ut commodi dolor voluptatum modi aut vitae"
+      id={8}
+      title="dolorem dolore est ipsam"
+    />
+    <Post
+      author="Leanne Graham"
+      body="consectetur animi nesciunt iure dolore
+    enim quia ad
+    veniam autem ut quam aut nobis
+    et est aut quod aut provident voluptas autem voluptas"
+      id={9}
+      title="nesciunt iure omnis dolorem tempora et accusantium"
+    />
+    <Post
+      author="Leanne Graham"
+      body="quo et expedita modi cum officia vel magni
+    doloribus qui repudiandae
+    vero nisi sit
+    quos veniam quod sed accusamus veritatis error"
+      id={10}
+      title="optio molestias id quia eum"
+    />
+    <Post
+      author="Ervin Howell"
+      body="delectus reiciendis molestiae occaecati non minima eveniet qui voluptatibus
+    accusamus in eum beatae sit
+    vel qui neque voluptates ut commodi qui incidunt
+    ut animi commodi"
+      id={11}
+      title="et ea vero quia laudantium autem"
+    />
+    <Post
+      author="Ervin Howell"
+      body="itaque id aut magnam
+    praesentium quia et ea odit et ea voluptas et
+    sapiente quia nihil amet occaecati quia id voluptatem
+    incidunt ea est distinctio odio"
+      id={12}
+      title="in quibusdam tempore odit est dolorem"
+    />
+    <Post
+      author="Ervin Howell"
+      body="aut dicta possimus sint mollitia voluptas commodi quo doloremque
+    iste corrupti reiciendis voluptatem eius rerum
+    sit cumque quod eligendi laborum minima
+    perferendis recusandae assumenda consectetur porro architecto ipsum ipsam"
+      id={13}
+      title="dolorum ut in voluptas mollitia et saepe quo animi"
+    />
+    <Post
+      author="Ervin Howell"
+      body="fuga et accusamus dolorum perferendis illo voluptas
+    non doloremque neque facere
+    ad qui dolorum molestiae beatae
+    sed aut voluptas totam sit illum"
+      id={14}
+      title="voluptatem eligendi optio"
+    />
+    <Post
+      author="Ervin Howell"
+      body="reprehenderit quos placeat
+    velit minima officia dolores impedit repudiandae molestiae nam
+    voluptas recusandae quis delectus
+    officiis harum fugiat vitae"
+      id={15}
+      title="eveniet quod temporibus"
+    />
+    <Post
+      author="Ervin Howell"
+      body="suscipit nam nisi quo aperiam aut
+    asperiores eos fugit maiores voluptatibus quia
+    voluptatem quis ullam qui in alias quia est
+    consequatur magni mollitia accusamus ea nisi voluptate dicta"
+      id={16}
+      title="sint suscipit perspiciatis velit dolorum rerum ipsa laboriosam odio"
+    />
+    <Post
+      author="Ervin Howell"
+      body="eos voluptas et aut odit natus earum
+    aspernatur fuga molestiae ullam
+    deserunt ratione qui eos
+    qui nihil ratione nemo velit ut aut id quo"
+      id={17}
+      title="fugit voluptas sed molestias voluptatem provident"
+    />
+  </ul>
+  <div
+    style={
+      Object {
+        "height": 2018.7375,
+      }
+    }
+  />
+</div>
+`;

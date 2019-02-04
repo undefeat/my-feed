@@ -1,10 +1,10 @@
 import * as React from 'react';
-import PostList from '.';
+import PostListContainer from './container';
 import { ScrollDirection } from '../../logic/calcListSelection';
 import { args } from '../../logic/calcListSelection.spec';
 
 function mockPostList(props?: any) {
-    const postList = new PostList({ postInfos: [], rowCount: 11, overscan: 7, ...props });
+    const postList = new PostListContainer({ postInfos: [], rowCount: 11, overscan: 7, ...props });
     postList.containerRef = React.createRef();
     postList.listRef = React.createRef();
     postList.setState = jest.fn();

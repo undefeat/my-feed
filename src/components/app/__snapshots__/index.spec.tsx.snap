@@ -31,7 +31,7 @@ exports[`renders with post list 1`] = `
   <h1>
     Recent posts
   </h1>
-  <PostList
+  <PostListContainer
     initialScrollTop={0}
     onScrollTopChanged={[Function]}
     overscan={10}

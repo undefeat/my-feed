@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Loader from '../loader';
-import PostList from '../post-list';
+import PostList from '../post-list/container';
 import LocalStorageService from '../../services/LocalStorageService';
 import { PostInfo } from '../post';
 
@@ -11,7 +11,7 @@ interface Props {
     initialScrollTop: number;
 }
 
-class App extends React.Component<Props> {
+class App extends React.PureComponent<Props> {
     render() {
         const { users, posts, loading, initialScrollTop } = this.props;
 

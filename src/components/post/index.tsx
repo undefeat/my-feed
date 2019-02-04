@@ -8,7 +8,7 @@ export interface PostInfo {
     body: string;
 }
 
-class Post extends React.Component<PostInfo> {
+class Post extends React.PureComponent<PostInfo> {
     render() {
         const { author, title, body } = this.props;
         return (

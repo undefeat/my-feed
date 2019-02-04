@@ -6,7 +6,7 @@ interface State {
     mounted: boolean;
 }
 
-class Loader extends React.Component {
+class Loader extends React.PureComponent<{}, State> {
     state = { mounted: false };
 
     render() {
