@@ -1,29 +1,19 @@
 import * as React from 'react';
-import UserService from 'src/services/UserService';
-import PostService from 'src/services/PostService';
-import PostList from 'src/components/post-list';
-import { PostInfo } from 'src/components/post';
-import LocalStorageService from 'src/services/LocalStorageService';
-import './index.css';
 import Loader from '../loader';
+import PostList from '../post-list';
+import LocalStorageService from '../../services/LocalStorageService';
+import { PostInfo } from '../post';
 
-interface State {
+interface Props {
     users: Model.User[];
     posts: Model.Post[];
     loading: boolean;
     initialScrollTop: number;
 }
 
-class App extends React.Component<{}, State> {
-    state: State = {
-        users: [],
-        posts: [],
-        loading: false,
-        initialScrollTop: 0
-    };
-
+class App extends React.Component<Props> {
     render() {
-        const { users, posts, loading, initialScrollTop } = this.state;
+        const { users, posts, loading, initialScrollTop } = this.props;
 
         const postInfos: PostInfo[] = posts.map(post => {
             const user = users.find(user => user.id === post.userId);
@@ -35,9 +25,6 @@ class App extends React.Component<{}, State> {
                 body: post.body
             };
         });
-
-        if (postInfos.length === 0) {
-        }
 
         return (
             <main className="app">
@@ -60,27 +47,6 @@ class App extends React.Component<{}, State> {
                 )}
             </main>
         );
-    }
-
-    async componentDidMount() {
-        const cloak = document.getElementById('cloak');
-        if (cloak) {
-            cloak.style.visibility = 'hidden';
-            cloak.style.opacity = '0';
-        }
-
-        try {
-            this.setState({ loading: true });
-
-            const users = await UserService.getUsers();
-            const posts = await PostService.getPosts();
-
-            this.setState({ users, posts, initialScrollTop: LocalStorageService.readScrollTop(), loading: false });
-        } catch (e) {
-            this.setState(() => {
-                throw e;
-            });
-        }
     }
 }
 

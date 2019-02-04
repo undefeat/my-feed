@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders with "No Posts Found" 1`] = `
+<main
+  className="app"
+>
+  <h1>
+    Recent posts
+  </h1>
+  <h2>
+    No Posts Found
+  </h2>
+</main>
+`;
+
+exports[`renders with loader 1`] = `
+<main
+  className="app"
+>
+  <h1>
+    Recent posts
+  </h1>
+  <Loader />
+</main>
+`;
+
+exports[`renders with post list 1`] = `
+<main
+  className="app"
+>
+  <h1>
+    Recent posts
+  </h1>
+  <PostList
+    initialScrollTop={0}
+    onScrollTopChanged={[Function]}
+    overscan={10}
+    postInfos={
+      Array [
+        Object {
+          "author": "Leanne Graham",
+          "body": "quia et suscipit
+      suscipit recusandae consequuntur expedita et cum
+      reprehenderit molestiae ut ut quas totam
+      nostrum rerum est autem sunt rem eveniet architecto",
+          "id": 1,
+          "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+        },
+        Object {
+          "author": "Leanne Graham",
+          "body": "est rerum tempore vitae
+      sequi sint nihil reprehenderit dolor beatae ea dolores neque
+      fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis
+      qui aperiam non debitis possimus qui neque nisi nulla",
+          "id": 2,
+          "title": "qui est esse",
+        },
+        Object {
+          "author": "Leanne Graham",
+          "body": "et iusto sed quo iure
+      voluptatem occaecati omnis eligendi aut ad
+      voluptatem doloribus vel accusantium quis pariatur
+      molestiae porro eius odio et labore et velit aut",
+          "id": 3,
+          "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+        },
+        Object {
+          "author": "Leanne Graham",
+          "body": "ullam et saepe reiciendis voluptatem adipisci
+      sit amet autem assumenda provident rerum culpa
+      quis hic commodi nesciunt rem tenetur doloremque ipsam iure
+      quis sunt voluptatem rerum illo velit",
+          "id": 4,
+          "title": "eum et est occaecati",
+        },
+        Object {
+          "author": "Leanne Graham",
+          "body": "repudiandae veniam quaerat sunt sed
+      alias aut fugiat sit autem sed est
+      voluptatem omnis possimus esse voluptatibus quis
+      est aut tenetur dolor neque",
+          "id": 5,
+          "title": "nesciunt quas odio",
+        },
+        Object {
+          "author": "Leanne Graham",
+          "body": "ut aspernatur corporis harum nihil quis provident sequi
+      mollitia nobis aliquid molestiae
+      perspiciatis et ea nemo ab reprehenderit accusantium quas
+      voluptate dolores velit et doloremque molestiae",
+          "id": 6,
+          "title": "dolorem eum magni eos aperiam quia",
+        },
+        Object {
+          "author": "Leanne Graham",
+          "body": "dolore placeat quibusdam ea quo vitae
+      magni quis enim qui quis quo nemo aut saepe
+      quidem repellat excepturi ut quia
+      sunt ut sequi eos ea sed quas",
+          "id": 7,
+          "title": "magnam facilis autem",
+        },
+        Object {
+          "author": "Leanne Graham",
+          "body": "dignissimos aperiam dolorem qui eum
+      facilis quibusdam animi sint suscipit qui sint possimus cum
+      quaerat magni maiores excepturi
+      ipsam ut commodi dolor voluptatum modi aut vitae",
+          "id": 8,
+          "title": "dolorem dolore est ipsam",
+        },
+        Object {
+          "author": "Leanne Graham",
+          "body": "consectetur animi nesciunt iure dolore
+      enim quia ad
+      veniam autem ut quam aut nobis
+      et est aut quod aut provident voluptas autem voluptas",
+          "id": 9,
+          "title": "nesciunt iure omnis dolorem tempora et accusantium",
+        },
+        Object {
+          "author": "Leanne Graham",
+          "body": "quo et expedita modi cum officia vel magni
+      doloribus qui repudiandae
+      vero nisi sit
+      quos veniam quod sed accusamus veritatis error",
+          "id": 10,
+          "title": "optio molestias id quia eum",
+        },
+      ]
+    }
+    rowCount={10}
+  />
+</main>
+`;
